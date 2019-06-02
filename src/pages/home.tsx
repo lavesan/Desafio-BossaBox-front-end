@@ -64,7 +64,9 @@ export class HomePage extends React.Component {
                         <SuccessButton>+ Add</SuccessButton>
                     </div>
                 </StyledActionsBox>
-                {this.state.tools.map(tool => <ToolCard key={tool.id} tool={tool} />)}
+                {this.state.tools.map(tool => 
+                    tool.title ? <ToolCard key={tool.id} tool={tool} /> : <p>No tools found</p>)
+                } 
             </StyledHomePage>
         )
     }
