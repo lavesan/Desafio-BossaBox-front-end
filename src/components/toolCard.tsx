@@ -1,6 +1,24 @@
 import React from 'react';
-import { DangerButton } from '../components/buttonComponent';
+import { DangerButton, SuccessButton } from '../components/buttonComponent';
 import styled from 'styled-components';
+// @ts-ignore
+import Modal from 'react-awesome-modal';
+import { ToolService } from '../services/tool.service'
+
+const StyledModalBody = styled.div`
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    .button-box {
+        display: flex;
+        justify-content: flex-end;
+        align-item: center;
+        margin-top: 20px;
+        button:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+`
 
 const StyledCard = styled.section`
     display: flex;
@@ -43,30 +61,55 @@ export class ToolCard extends React.Component {
             tags: ['']
         },
     }
+
     
     state = {
         confirmModal: false
     }
-
+    
     constructor(props: { tool: TypeTool }) {
         super(props);
+        this.state = {
+            confirmModal: false
+        } 
     }
 
-    showModal() {
+    showModal = () => {
         this.setState({ confirmModal: true })
+    }
+    
+    closeModal = () => {
+        this.setState({ confirmModal: false })
+    }
+    
+    removeService = () => {
+        this.setState({ confirmModal: false });
+        ToolService.prototype.deleteTool(this.props.tool.id).then(res => {
+            console.log(res);
+        });
     }
 
     render() {
         return (
             <StyledCard>
                 <div className="header-box">
-                    <h3><a href="#">{this.props.tool.title}</a></h3>
+                    <h3><u>{this.props.tool.title}</u></h3>
                     <div>
                         <DangerButton value={this.props.tool.id} onClick={this.showModal}>X remove</DangerButton>
                     </div>
                 </div>
                 <p>{this.props.tool.description}</p>
-                <strong>{this.props.tool.tags.map(tag => `${tag} `)}</strong>
+                <strong>{this.props.tool.tags.map(tag => `#${tag} `)}</strong>
+                <Modal visible={this.state.confirmModal} width="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <StyledModalBody>
+                        <h1>X Remove tool</h1>
+                        <p>Are you sure you want to remove <strong>{this.props.tool.title}</strong>?</p>
+                        <div className="button-box">
+                            <SuccessButton>Deletar</SuccessButton>
+                            <DangerButton onClick={() => this.closeModal()}>Voltar</DangerButton>
+                        </div>
+                    </StyledModalBody>
+                </Modal>
             </StyledCard>
         )
     }
