@@ -10,52 +10,52 @@ const Button = styled.button`
 `
 
 export const NeutralButton = styled(Button)`
-  border: thin solid ${props => props.theme.primaryNeutralColor};
-  background-color: ${props => props.theme.primaryNeutralColor};
+  border: thin solid ${props => props.theme.neutral.primaryColor};
+  background-color: ${props => props.theme.neutral.primaryColor};
   :hover {
-    border-color: ${props => props.theme.secondaryNeutralColor};
-    background-color: ${props => props.theme.secondaryNeutralColor};
+    border-color: ${props => props.theme.neutral.secondaryColor};
+    background-color: ${props => props.theme.neutral.secondaryColor};
   }
   :active {
-    border-color: ${props => props.theme.terciaryNeutralColor};
-    background-color: ${props => props.theme.terciaryNeutralColor};
+    border-color: ${props => props.theme.neutral.terciaryColor};
+    background-color: ${props => props.theme.neutral.terciaryColor};
   }
   :disabled {
-    border-color: ${props => props.theme.quaternaryNeutralColor};
-    background-color: ${props => props.theme.quaternaryNeutralColor};
+    border-color: ${props => props.theme.neutral.quaternaryColor};
+    background-color: ${props => props.theme.neutral.quaternaryColor};
   }
 `
 
 export const SuccessButton = styled(Button)`
-  border: thin solid ${props => props.theme.primarySuccessColor};
-  background-color: ${props => props.theme.primarySuccessColor};
+  border: thin solid ${props => props.theme.success.primaryColor};
+  background-color: ${props => props.theme.success.primaryColor};
   :hover {
-    border-color: ${props => props.theme.secondarySuccessColor};
-    background-color: ${props => props.theme.secondarySuccessColor};
+    border-color: ${props => props.theme.success.secondaryColor};
+    background-color: ${props => props.theme.success.secondaryColor};
   }
   :active {
-    border-color: ${props => props.theme.terciarySuccessColor};
-    background-color: ${props => props.theme.terciarySuccessColor};
+    border-color: ${props => props.theme.success.terciaryColor};
+    background-color: ${props => props.theme.success.terciaryColor};
   }
   :disabled {
-    border-color: ${props => props.theme.quaternarySuccessColor};
-    background-color: ${props => props.theme.quaternarySuccessColor};
+    border-color: ${props => props.theme.success.quaternaryColor};
+    background-color: ${props => props.theme.success.quaternaryColor};
   }
 `
 
 export const DangerButton = styled(Button)`
-  border: thin solid ${props => props.theme.primaryDangerColor};
-  background-color: ${props => props.theme.primaryDangerColor};
+  border: thin solid ${props => props.theme.danger.primaryColor};
+  background-color: ${props => props.theme.danger.primaryColor};
   :hover {
-    border-color: ${props => props.theme.secondaryDangerColor};
-    background-color: ${props => props.theme.secondaryDangerColor};
+    border-color: ${props => props.theme.danger.secondaryColor};
+    background-color: ${props => props.theme.danger.secondaryColor};
   }
   :active {
-    border-color: ${props => props.theme.terciaryDangerColor};
-    background-color: ${props => props.theme.terciaryDangerColor};
+    border-color: ${props => props.theme.danger.terciaryColor};
+    background-color: ${props => props.theme.danger.terciaryColor};
   }
   :disabled {
-    border-color: ${props => props.theme.quaternaryDangerColor};
-    background-color: ${props => props.theme.quaternaryDangerColor};
+    border-color: ${props => props.theme.danger.quaternaryColor};
+    background-color: ${props => props.theme.danger.quaternaryColor};
   }
 `

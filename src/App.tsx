@@ -10,18 +10,24 @@ class App extends React.Component {
     const theme = {
       bossaFontFamily: 'Roboto',
       primaryFontColor: '#000',
-      primarySuccessColor: '#0DCB7D',
-      secondarySuccessColor: '#10B26C',
-      terciarySuccessColor: '#0E995D',
-      quaternarySuccessColor: '#88EDC4',
-      primaryDangerColor: '#F95E5A',
-      secondaryDangerColor: '#CC4C4C',
-      terciaryDangerColor: '#A53F3F',
-      quaternaryDangerColor: '#FCAEAC',
-      primaryNeutralColor: '#365DF0',
-      secondaryNeutralColor: '#2F55CC',
-      terciaryNeutralColor: '#244AA8',
-      quaternaryNeutralColor: '#B9C6FA',
+      success: {
+        primaryColor: '#0DCB7D',
+        secondaryColor: '#10B26C',
+        terciaryColor: '#0E995D',
+        quaternaryColor: '#88EDC4',
+      },
+      danger: {
+        primaryColor: '#F95E5A',
+        secondaryColor: '#CC4C4C',
+        terciaryColor: '#A53F3F',
+        quaternaryColor: '#FCAEAC',
+      },
+      neutral: {
+        primaryColor: '#365DF0',
+        secondaryColor: '#2F55CC',
+        terciaryColor: '#244AA8',
+        quaternaryColor: '#B9C6FA',
+      }
     }
 
     return (
