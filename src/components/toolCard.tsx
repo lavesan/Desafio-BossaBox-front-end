@@ -52,40 +52,31 @@ export type TypeTool = {
 
 export class ToolCard extends React.Component {
 
-    props: { tool: TypeTool } = {
-        tool: {
-            description: '',
-            id: -1,
-            title: '',
-            link: '',
-            tags: ['']
-        },
-    }    
-
-    state = {
-        showDeleteToolModal: false
+    props: { 
+        tool: TypeTool, 
+        manageVisibilityRemoveToolModal: (visible: boolean, modalInfo?: { id: number, title: string }) => void 
     }
 
-    showModal = () => {
-        this.setState({ showDeleteToolModal: true });
+    constructor(props: any) {
+        super(props);
+        this.props = props;
     }
 
     render() {
         
-        const { tool: { title, id, link, description, tags } } = this.props;
-        const { showDeleteToolModal } = this.state;
+        const { tool: { title, id, link, description, tags }, manageVisibilityRemoveToolModal } = this.props;
 
         return (
             <StyledCard>
                 <div className="header-box">
                     <h3><a href={link} target="_blank" rel="noopener noreferrer">{title}</a></h3>
                     <div>
-                        <DangerButton value={id} onClick={() => this.showModal()}>X remove</DangerButton>
+                        <DangerButton onClick={() => this.props.manageVisibilityRemoveToolModal(true, { id, title })
+                        }>X remove</DangerButton>
                     </div>
                 </div>
                 <p>{description}</p>
                 <strong>{tags.map(tag => `#${tag} `)}</strong>
-                <DeleteToolModal showDeleteToolModal={showDeleteToolModal} id={id} title={title} />
             </StyledCard>
         )
     }

@@ -7,10 +7,16 @@ import { ToolService } from '../../services/tool.service';
 
 export class DeleteToolModal extends React.Component {
 
-    props: {showDeleteToolModal: boolean, id: number, title: string}
+    props: {
+        visible: boolean, 
+        id: number, 
+        title: string, 
+        manageVisibilityRemoveToolModal: (visible: boolean) => void,
+        reloadTools: () => void
+    }
 
     state = {
-        showDeleteToolModal: false, 
+        visible: false, 
         id: -1, 
         title: ''
     }
@@ -18,18 +24,17 @@ export class DeleteToolModal extends React.Component {
     constructor(props: any) {
         super(props)
         this.props = props;
-        this.state.showDeleteToolModal = props.showDeleteToolModal;
     }
 
     closeModal = (): void => {
-        this.setState({ showDeleteToolModal: false })
+        this.props.manageVisibilityRemoveToolModal(false);
     }
     
     removeTool = (id: number): void => {
         ToolService.prototype.deleteTool(id).then(res => {
             if (res.status === 200) {
                 this.closeModal()
-                this.setState({ reloadTools: true })
+                this.props.reloadTools();
             }
         });
     }
@@ -39,11 +44,10 @@ export class DeleteToolModal extends React.Component {
     }
 
     render() {
-        const { showDeleteToolModal } = this.state;
-        const { title, id } = this.props;
+        const { title, id, visible } = this.props;
 
         return (
-            <Modal visible={showDeleteToolModal} width="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={visible} width="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <StyledModalBody>
                     <h1>X Remove tool</h1>
                     <p>Are you sure you want to remove <strong>{title}</strong>?</p>

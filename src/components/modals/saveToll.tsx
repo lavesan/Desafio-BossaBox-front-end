@@ -20,29 +20,34 @@ const StyledFormBox = styled.form`
 
 export class SaveToolModal extends React.Component {
      
-    props: { initialValues: { title: string, link: string, description: string, tags: string }, visible: boolean }
-
-    state = {
-        visible: false,
-        reloadTools: false
+    props: { initialValues: { 
+        title: string, 
+        link: string, 
+        description: string, 
+        tags: string 
+        }, 
+        visible: boolean, 
+        manageVisibilitySaveToolModal: (visible: boolean) => void,
+        reloadTools: () => void
     }
 
     constructor(props: any) {
         super(props)
         this.props = props;
-        this.state.visible = props.visible;
     }
 
     closeModal = (): void => {
-        this.setState({ visible: false })
+        this.props.manageVisibilitySaveToolModal(false);
     }
 
     handleSubmit = (tool: any): void => {
         let newTool = tool;
         newTool.tags = newTool.tags.split(' ');
         ToolService.prototype.saveTool(newTool).then(res => {
-            this.closeModal();
-            this.setState({ reloadTools: true })
+            if (res.status === 201) {
+                this.closeModal();
+                this.props.reloadTools();
+            }
             console.log(res);
         })
     }
@@ -53,7 +58,7 @@ export class SaveToolModal extends React.Component {
 
     render() {
         return (
-            <Modal visible={this.state.visible} width="600" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+            <Modal visible={this.props.visible} width="600" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <StyledModalBody>
                     <h1>+ Add tool</h1>
                     <Formik initialValues={this.props.initialValues} onSubmit={this.handleSubmit}>
