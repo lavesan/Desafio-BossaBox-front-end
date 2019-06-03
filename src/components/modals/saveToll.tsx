@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
 import { StyledModalBody } from '../toolCard';
@@ -19,13 +18,13 @@ const StyledFormBox = styled.form`
     }
 `
 
-// @ts-ignore
 export class SaveToolModal extends React.Component {
      
     props: { initialValues: { title: string, link: string, description: string, tags: string }, visible: boolean }
 
     state = {
-        visible: false
+        visible: false,
+        reloadTools: false
     }
 
     constructor(props: any) {
@@ -39,11 +38,11 @@ export class SaveToolModal extends React.Component {
     }
 
     handleSubmit = (tool: any): void => {
-        console.log(tool);
         let newTool = tool;
         newTool.tags = newTool.tags.split(' ');
         ToolService.prototype.saveTool(newTool).then(res => {
             this.closeModal();
+            this.setState({ reloadTools: true })
             console.log(res);
         })
     }

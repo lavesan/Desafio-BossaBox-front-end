@@ -46,12 +46,13 @@ export type TypeTool = {
     description: string;
     id: number;
     title: string;
+    link: string;
     tags: string[];
 }
 
 export class ToolCard extends React.Component {
 
-    props = {
+    props: { tool: TypeTool } = {
         tool: {
             description: '',
             id: -1,
@@ -62,13 +63,7 @@ export class ToolCard extends React.Component {
     }    
 
     state = {
-        reloadTools: false,
-        showSaveToolModal: false, 
         showDeleteToolModal: false
-    }
-    
-    constructor(props: { tool: TypeTool }) {
-        super(props);
     }
 
     showModal = () => {
@@ -78,19 +73,19 @@ export class ToolCard extends React.Component {
     render() {
         
         const { tool: { title, id, link, description, tags } } = this.props;
-        let { showDeleteToolModal } = this.state;
+        const { showDeleteToolModal } = this.state;
 
         return (
             <StyledCard>
                 <div className="header-box">
-                    <h3><a href={link}>{title}</a></h3>
+                    <h3><a href={link} target="_blank" rel="noopener noreferrer">{title}</a></h3>
                     <div>
                         <DangerButton value={id} onClick={() => this.showModal()}>X remove</DangerButton>
                     </div>
                 </div>
                 <p>{description}</p>
                 <strong>{tags.map(tag => `#${tag} `)}</strong>
-                <DeleteToolModal showDeleteToolModal={this.state.showDeleteToolModal} id={id} title={title} />
+                <DeleteToolModal showDeleteToolModal={showDeleteToolModal} id={id} title={title} />
             </StyledCard>
         )
     }

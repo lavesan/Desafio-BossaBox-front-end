@@ -27,13 +27,6 @@ const box = {
     flex: 1
 }
 
-
-const ReloadToolsContext = React.createContext({
-    reloadTools: false,
-    showSaveToolModal: false, 
-    showDeleteToolModal: false
-})
-
 export class HomePage extends React.Component {
 
     state = {
@@ -44,7 +37,6 @@ export class HomePage extends React.Component {
             title: '',
             tags: ['']
         }],
-        reloadTools: false,
         showNewToolModal: false
     };
 
@@ -59,10 +51,6 @@ export class HomePage extends React.Component {
     }
     
     render() {
-        const value = {
-            ...this.state
-        }
-
         const initialValues = {
             title: '',
             link: '',

@@ -27,8 +27,10 @@ export class DeleteToolModal extends React.Component {
     
     removeTool = (id: number): void => {
         ToolService.prototype.deleteTool(id).then(res => {
-            if (res.status === 200)
+            if (res.status === 200) {
                 this.closeModal()
+                this.setState({ reloadTools: true })
+            }
         });
     }
 
