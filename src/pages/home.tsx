@@ -1,18 +1,17 @@
 import React from 'react';
-
 import { ToolService } from '../services/tool.service';
-
 import { SuccessButton } from '../components/buttonComponent';
 import { StyledTextInput } from '../components/inputComponents';
 import { ToolCard } from '../components/toolCard';
+import { SaveToolModal } from '../components/modals/saveToll';
 import styled from 'styled-components';
-import { TypeTool } from '../components/toolCard'
 
 const StyledHomePage = styled.div`
     margin: 0 auto;
     width: calc(100% - 500px);
     padding: 10px;
-    font-family: Roboto;
+    color: ${props => props.theme.primaryFontColor};
+    font-family: ${props => props.theme.bossaFontFamily};
 `
 
 const StyledActionsBox = styled.div`
@@ -28,9 +27,12 @@ const box = {
     flex: 1
 }
 
-interface ITools {
-    tools: TypeTool[]
-}
+
+const ReloadToolsContext = React.createContext({
+    reloadTools: false,
+    showSaveToolModal: false, 
+    showDeleteToolModal: false
+})
 
 export class HomePage extends React.Component {
 
@@ -38,18 +40,36 @@ export class HomePage extends React.Component {
         tools: [{
             description: '',
             id: -1,
+            link: '',
             title: '',
             tags: ['']
-        }]
+        }],
+        reloadTools: false,
+        showNewToolModal: false
     };
+
+    showSaveToolModal = () => {
+        this.setState({ showNewToolModal: true })
+    }
 
     componentDidMount() {
         ToolService.prototype.getAllTools().then(res => {
             this.setState({ tools: res });
         })
     }
-
+    
     render() {
+        const value = {
+            ...this.state
+        }
+
+        const initialValues = {
+            title: '',
+            link: '',
+            description: '',
+            tags: ''
+        }
+
         return (
             <StyledHomePage>
                 <h1>VUTTR</h1>
@@ -61,12 +81,13 @@ export class HomePage extends React.Component {
                         <label htmlFor="search">Search in tags only</label>
                     </div>
                     <div style={box}>
-                        <SuccessButton>+ Add</SuccessButton>
+                        <SuccessButton onClick={this.showSaveToolModal}>+ Add</SuccessButton>
                     </div>
                 </StyledActionsBox>
+                <SaveToolModal visible={this.state.showNewToolModal} initialValues={initialValues} />
                 {this.state.tools.map(tool => 
                     tool.title ? <ToolCard key={tool.id} tool={tool} /> : <p>No tools found</p>)
-                } 
+                }
             </StyledHomePage>
         )
     }

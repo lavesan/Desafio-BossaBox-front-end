@@ -1,18 +1,16 @@
 import React from 'react';
-import { DangerButton, SuccessButton } from '../components/buttonComponent';
+import { DangerButton } from '../components/buttonComponent';
+import { DeleteToolModal } from './modals/deleteTool'
 import styled from 'styled-components';
-// @ts-ignore
-import Modal from 'react-awesome-modal';
-import { ToolService } from '../services/tool.service'
 
-const StyledModalBody = styled.div`
+export const StyledModalBody = styled.div`
     padding: 20px;
     display: flex;
     flex-flow: column nowrap;
     .button-box {
         display: flex;
         justify-content: flex-end;
-        align-item: center;
+        align-items: center;
         margin-top: 20px;
         button:not(:last-child) {
             margin-right: 10px;
@@ -58,58 +56,41 @@ export class ToolCard extends React.Component {
             description: '',
             id: -1,
             title: '',
+            link: '',
             tags: ['']
         },
-    }
+    }    
 
-    
     state = {
-        confirmModal: false
+        reloadTools: false,
+        showSaveToolModal: false, 
+        showDeleteToolModal: false
     }
     
     constructor(props: { tool: TypeTool }) {
         super(props);
-        this.state = {
-            confirmModal: false
-        } 
     }
 
     showModal = () => {
-        this.setState({ confirmModal: true })
-    }
-    
-    closeModal = () => {
-        this.setState({ confirmModal: false })
-    }
-    
-    removeService = () => {
-        this.setState({ confirmModal: false });
-        ToolService.prototype.deleteTool(this.props.tool.id).then(res => {
-            console.log(res);
-        });
+        this.setState({ showDeleteToolModal: true });
     }
 
     render() {
+        
+        const { tool: { title, id, link, description, tags } } = this.props;
+        let { showDeleteToolModal } = this.state;
+
         return (
             <StyledCard>
                 <div className="header-box">
-                    <h3><u>{this.props.tool.title}</u></h3>
+                    <h3><a href={link}>{title}</a></h3>
                     <div>
-                        <DangerButton value={this.props.tool.id} onClick={this.showModal}>X remove</DangerButton>
+                        <DangerButton value={id} onClick={() => this.showModal()}>X remove</DangerButton>
                     </div>
                 </div>
-                <p>{this.props.tool.description}</p>
-                <strong>{this.props.tool.tags.map(tag => `#${tag} `)}</strong>
-                <Modal visible={this.state.confirmModal} width="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                    <StyledModalBody>
-                        <h1>X Remove tool</h1>
-                        <p>Are you sure you want to remove <strong>{this.props.tool.title}</strong>?</p>
-                        <div className="button-box">
-                            <SuccessButton>Deletar</SuccessButton>
-                            <DangerButton onClick={() => this.closeModal()}>Voltar</DangerButton>
-                        </div>
-                    </StyledModalBody>
-                </Modal>
+                <p>{description}</p>
+                <strong>{tags.map(tag => `#${tag} `)}</strong>
+                <DeleteToolModal showDeleteToolModal={this.state.showDeleteToolModal} id={id} title={title} />
             </StyledCard>
         )
     }

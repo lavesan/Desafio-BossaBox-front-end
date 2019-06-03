@@ -7,6 +7,26 @@ export const StyledTextInput = styled.input`
     background-color: #F5F4F6;
     color: #000;
     outline:none;
+    box-sizing: border-box;
+    :focus {
+        border-color: #DEDCE1;
+        background-color: #EBEAED;
+    }
+    .invalid {
+        color: #F95E5A;
+        border-color: #F95E5A;
+        background-color: #FEEFEE;
+    }
+`
+
+export const StyledTextArea = styled.textarea`
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: thin solid #EBEAED;
+    background-color: #F5F4F6;
+    color: #000;
+    outline:none;
+    box-sizing: border-box;
     :focus {
         border-color: #DEDCE1;
         background-color: #EBEAED;

@@ -2,67 +2,60 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   padding: 10px 20px;
-  font-family: $bossa-font-family;
   color: #FFF;
   border-radius: 4px;
   cursor: pointer;
   outline:none;
   transition: ease 0.4s;
 `
-// ${props => props.theme.primaryColor}
+
 export const NeutralButton = styled(Button)`
-  border: thin solid #365DF0;
-  background-color: #365DF0;
+  border: thin solid ${props => props.theme.primaryNeutralColor};
+  background-color: ${props => props.theme.primaryNeutralColor};
   :hover {
-    border-color: #2F55CC;
-    background-color: #2F55CC;
+    border-color: ${props => props.theme.secondaryNeutralColor};
+    background-color: ${props => props.theme.secondaryNeutralColor};
   }
   :active {
-    border-color: #244AA8;
-    background-color: #244AA8;
+    border-color: ${props => props.theme.terciaryNeutralColor};
+    background-color: ${props => props.theme.terciaryNeutralColor};
   }
   :disabled {
-    border-color: #B9C6FA;
-    background-color: #B9C6FA;
+    border-color: ${props => props.theme.quaternaryNeutralColor};
+    background-color: ${props => props.theme.quaternaryNeutralColor};
   }
 `
 
 export const SuccessButton = styled(Button)`
-  border: thin solid #0DCB7D;
-  background-color: #0DCB7D;
+  border: thin solid ${props => props.theme.primarySuccessColor};
+  background-color: ${props => props.theme.primarySuccessColor};
   :hover {
-    border-color: #10B26C;
-    background-color: #10B26C;
+    border-color: ${props => props.theme.secondarySuccessColor};
+    background-color: ${props => props.theme.secondarySuccessColor};
   }
   :active {
-    border-color: #0E995D;
-    background-color: #0E995D;
+    border-color: ${props => props.theme.terciarySuccessColor};
+    background-color: ${props => props.theme.terciarySuccessColor};
   }
   :disabled {
-    border-color: #88EDC4;
-    background-color: #88EDC4;
+    border-color: ${props => props.theme.quaternarySuccessColor};
+    background-color: ${props => props.theme.quaternarySuccessColor};
   }
 `
 
 export const DangerButton = styled(Button)`
-  border: thin solid #F95E5A;
-  background-color: #F95E5A;
+  border: thin solid ${props => props.theme.primaryDangerColor};
+  background-color: ${props => props.theme.primaryDangerColor};
   :hover {
-    border-color: #CC4C4C;
-    background-color: #CC4C4C;
+    border-color: ${props => props.theme.secondaryDangerColor};
+    background-color: ${props => props.theme.secondaryDangerColor};
   }
   :active {
-    border-color: #A53F3F;
-    background-color: #A53F3F;
+    border-color: ${props => props.theme.terciaryDangerColor};
+    background-color: ${props => props.theme.terciaryDangerColor};
   }
   :disabled {
-    border-color: #FCAEAC;
-    background-color: #FCAEAC;
+    border-color: ${props => props.theme.quaternaryDangerColor};
+    background-color: ${props => props.theme.quaternaryDangerColor};
   }
 `
-
-// Button.defaultProps = {
-//     theme: {
-//       main: "palevioletred"
-//     }
-// }
