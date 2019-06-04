@@ -1,8 +1,8 @@
 import React from 'react';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
-import { StyledModalBody } from '../toolCard';
-import { SuccessButton, DangerButton } from '../buttonComponent';
+import { StyledModalBody } from '../card/styles';
+import { SuccessButton, DangerButton } from '../buttons/styles';
 import { ToolService } from '../../services/tool.service';
 
 export class DeleteToolModal extends React.Component {

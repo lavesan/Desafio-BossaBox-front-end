@@ -1,22 +1,12 @@
 import React from 'react';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
-import { StyledModalBody } from '../toolCard';
-import styled from 'styled-components';
-import { SuccessButton, DangerButton } from '../buttonComponent';
-import { StyledTextInput, StyledTextArea } from '../inputComponents';
+import { StyledModalBody } from '../card/styles';
+import { SuccessButton, DangerButton } from '../buttons/styles';
+import { StyledTextInput, StyledTextArea } from '../inputs/inputComponents';
 import { Formik } from 'formik';
-import { ToolService } from '../../services/tool.service'
-
-
-const StyledFormBox = styled.form`
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    div {
-        width: 80%;
-    }
-`
+import { ToolService } from '../../services/tool.service';
+import { StyledFormBox } from './styles'
 
 export class SaveToolModal extends React.Component {
      

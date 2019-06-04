@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { HomePage } from './pages/home'
+import { HomePage } from './pages/home/home'
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 
