@@ -1,7 +1,7 @@
 import React from 'react';
 import { ToolService } from '../../services/tool.service';
 import { SuccessButton } from '../../components/buttons/styles';
-import { StyledTextInput } from '../../components/inputs/inputComponents';
+import { StyledTextInput, StyledCheckbox } from '../../components/inputs/inputComponents';
 import { ToolCard } from '../../components/card/toolCard';
 import { SaveToolModal } from '../../components/modals/saveToll';
 import { DeleteToolModal } from '../../components/modals/deleteTool';
@@ -27,7 +27,8 @@ export class HomePage extends React.Component {
         visibilityRemoveToolModal: false,
         visibilitySaveToolModal: false,
         reloadTools: true,
-        removeModalInfo: { id: -1, title: '' }
+        removeModalInfo: { id: -1, title: '' },
+        searchTools: { onlyTags: false, searchInput: '' }
     };
 
     manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: { id: number, title: string }): void => {
@@ -39,6 +40,15 @@ export class HomePage extends React.Component {
 
     manageVisibilitySaveToolModal = (visible: boolean): void => {
         this.setState({ visibilitySaveToolModal: visible })
+    }
+
+    searchTools = (element: any) => {
+        const { target: { value } } = element;
+        ToolService.prototype.searchTool(value, this.state.searchTools.onlyTags)
+            .then(res =>  {
+                this.setState({ reloadTools: false, tools: res })
+            })
+            .catch(err => console.log('err: ', err));
     }
     
     reloadTools = (): void => {
@@ -72,16 +82,16 @@ export class HomePage extends React.Component {
             <StyledHomePage>
                 <h1>VUTTR</h1>
                 <h2>Very Useful Tools to Remember</h2>
-                <StyledActionsBox>
-                    <StyledTextInput type="text" placeholder="search" />
-                    <div>
-                        <input id="search" type="checkbox" />
-                        <label htmlFor="search">Search in tags only</label>
-                    </div>
-                    <div style={box}>
-                        <SuccessButton onClick={() => this.manageVisibilitySaveToolModal(true)}>+ Add</SuccessButton>
-                    </div>
-                </StyledActionsBox>
+                    <StyledActionsBox>
+                        <StyledTextInput type="text" placeholder="search" onKeyUp={this.searchTools} />
+                        <StyledCheckbox>
+                            <input id="search" type="checkbox" onChange={(e) => this.setState({ searchTools : { onlyTags: e.target.checked } }) } />
+                            <label htmlFor="search">Search in tags only</label>
+                        </StyledCheckbox>
+                        <div style={box}>
+                            <SuccessButton type="button" onClick={() => this.manageVisibilitySaveToolModal(true)}>+ Add</SuccessButton>
+                        </div>
+                    </StyledActionsBox>
                 {tools.map(tool =>
                         tool.title ? <ToolCard key={tool.id} tool={tool} manageVisibilityRemoveToolModal={this.manageVisibilityRemoveToolModal} /> : <p>No tools found</p>)
                 }

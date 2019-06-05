@@ -6,9 +6,10 @@ export class ToolService {
             .then(res => res.data)
     }
 
-    async searchTool(tag: string, onlyTag: boolean): Promise<any> {
-        return axios.get(`http://localhost:3000/tools${tag}`)
-            .then(res => res)
+    async searchTool(value: string, onlyTag: boolean): Promise<any> {
+        const params = onlyTag ? { tags_like: value } : { q: value };
+        return axios.get(`http://localhost:3000/tools`, { params })
+            .then(res => res.data)
     }
 
     async saveTool(tool: any): Promise<any> {
