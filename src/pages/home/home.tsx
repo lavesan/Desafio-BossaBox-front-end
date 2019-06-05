@@ -42,9 +42,26 @@ export class HomePage extends React.Component {
         this.setState({ visibilitySaveToolModal: visible })
     }
 
-    searchTools = (element: any) => {
+    onChangeTagsOnly = (element: any) => {
+        const { target: { checked } } = element;
+
+        this.setState({ searchTools: { onlyTags: checked, searchInput: this.state.searchTools.searchInput } }, () => {
+            this.searchTools();
+        });
+    }
+    
+    onSearchKeyUp = (element: any) => {
         const { target: { value } } = element;
-        ToolService.prototype.searchTool(value, this.state.searchTools.onlyTags)
+
+        this.setState({ searchTools: { searchInput: value, onlyTags: this.state.searchTools.onlyTags } }, () => {
+            this.searchTools();
+        });
+    }
+
+    searchTools = () => {
+        const { searchTools: { searchInput, onlyTags } } = this.state;
+
+        ToolService.prototype.searchTool(searchInput, onlyTags)
             .then(res =>  {
                 this.setState({ reloadTools: false, tools: res })
             })
@@ -83,9 +100,9 @@ export class HomePage extends React.Component {
                 <h1>VUTTR</h1>
                 <h2>Very Useful Tools to Remember</h2>
                     <StyledActionsBox>
-                        <StyledTextInput type="text" placeholder="search" onKeyUp={this.searchTools} />
+                        <StyledTextInput type="text" placeholder="search" onKeyUp={this.onSearchKeyUp} />
                         <StyledCheckbox>
-                            <input id="search" type="checkbox" onChange={(e) => this.setState({ searchTools : { onlyTags: e.target.checked } }) } />
+                            <input id="search" type="checkbox" onChange={this.onChangeTagsOnly} />
                             <label htmlFor="search">Search in tags only</label>
                         </StyledCheckbox>
                         <div style={box}>
