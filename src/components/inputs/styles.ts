@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledTextInput = styled.input`
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 4px;
     border: thin solid #EBEAED;
     background-color: #F5F4F6;
@@ -12,15 +12,18 @@ export const StyledTextInput = styled.input`
         border-color: #DEDCE1;
         background-color: #EBEAED;
     }
-    .invalid {
-        color: #F95E5A;
-        border-color: #F95E5A;
-        background-color: #FEEFEE;
+    :invalid {
+        color: ${props => props.theme.danger.primaryColor};
+        border-color: ${props => props.theme.danger.primaryColor};
+        background-color: ${props => props.theme.danger.quaternaryColor};
+    }
+    :disabled {
+        color: #DEDCE1;
     }
 `
 
 export const StyledTextArea = styled.textarea`
-    padding: 10px 20px;
+    padding: 5px 20px;
     border-radius: 4px;
     border: thin solid #EBEAED;
     background-color: #F5F4F6;
@@ -31,7 +34,7 @@ export const StyledTextArea = styled.textarea`
         border-color: #DEDCE1;
         background-color: #EBEAED;
     }
-    .invalid {
+    :invalid {
         color: #F95E5A;
         border-color: #F95E5A;
         background-color: #FEEFEE;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ToolService } from '../../services/tool.service';
 import { SuccessButton } from '../../components/buttons/styles';
-import { StyledTextInput, StyledCheckbox } from '../../components/inputs/inputComponents';
+import { StyledTextInput, StyledCheckbox } from '../../components/inputs/styles';
 import { ToolCard } from '../../components/card/toolCard';
 import { SaveToolModal } from '../../components/modals/saveToll';
 import { DeleteToolModal } from '../../components/modals/deleteTool';
@@ -30,6 +30,13 @@ export class HomePage extends React.Component {
         removeModalInfo: { id: -1, title: '' },
         searchTools: { onlyTags: false, searchInput: '' }
     };
+
+    constructor(props: any, private toolService: ToolService) {
+        super(props);
+        this.toolService = new ToolService();
+    }
+
+    emptyToolsMessage: string = 'No tools found';
 
     manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: { id: number, title: string }): void => {
         if (modalInfo) {
@@ -61,7 +68,7 @@ export class HomePage extends React.Component {
     searchTools = () => {
         const { searchTools: { searchInput, onlyTags } } = this.state;
 
-        ToolService.prototype.searchTool(searchInput, onlyTags)
+        this.toolService.searchTool(searchInput, onlyTags)
             .then(res =>  {
                 this.setState({ reloadTools: false, tools: res })
             })
@@ -70,7 +77,7 @@ export class HomePage extends React.Component {
     
     reloadTools = (): void => {
         this.setState({ reloadTools: true })
-        ToolService.prototype.getAllTools().then(res => {
+        this.toolService.getAllTools().then(res => {
             this.setState({ reloadTools: false, tools: res })
         })
     }
@@ -89,12 +96,6 @@ export class HomePage extends React.Component {
             tags: ''
         }
 
-        const value = {
-            manageVisibilityRemoveToolModal: this.manageVisibilityRemoveToolModal,
-            manageVisibilitySaveToolModal: this.manageVisibilitySaveToolModal,
-            reloadTools: this.reloadTools
-        }
-
         return (
             <StyledHomePage>
                 <h1>VUTTR</h1>
@@ -110,7 +111,7 @@ export class HomePage extends React.Component {
                         </div>
                     </StyledActionsBox>
                 {tools.map(tool =>
-                        tool.title ? <ToolCard key={tool.id} tool={tool} manageVisibilityRemoveToolModal={this.manageVisibilityRemoveToolModal} /> : <p>No tools found</p>)
+                        tool.title ? <ToolCard key={tool.id} tool={tool} manageVisibilityRemoveToolModal={this.manageVisibilityRemoveToolModal} /> : <p>{this.emptyToolsMessage}</p>)
                 }
                 <SaveToolModal manageVisibilitySaveToolModal={this.manageVisibilitySaveToolModal} visible={visibilitySaveToolModal} 
                     initialValues={initialValues} reloadTools={this.reloadTools} />

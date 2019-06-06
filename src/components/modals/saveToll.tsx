@@ -3,11 +3,19 @@ import React from 'react';
 import Modal from 'react-awesome-modal';
 import { StyledModalBody } from '../card/styles';
 import { SuccessButton, DangerButton } from '../buttons/styles';
-import { StyledTextInput, StyledTextArea } from '../inputs/inputComponents';
+import { StyledTextInput, StyledTextArea } from '../inputs/styles';
 import { ToolService } from '../../services/tool.service';
 import { StyledFormBox } from './styles'
-import { Formik, ErrorMessage } from 'formik';
-import * as yup from 'yup';
+import { Formik, ErrorMessage, yupToFormErrors } from 'formik';
+import styled from 'styled-components';
+import { saveToolValidation } from './validations'
+
+const StyledErrorMessage = styled(ErrorMessage)`
+    color: ${props => props.theme.danger.primaryColor};
+    font-size: 0.9rem;
+    margin: 2px 0;
+    text-align: right;
+`
 
 export class SaveToolModal extends React.Component {
      
@@ -22,9 +30,10 @@ export class SaveToolModal extends React.Component {
         reloadTools: () => void
     }
 
-    constructor(props: any) {
+    constructor(props: any, private toolService: ToolService) {
         super(props)
         this.props = props;
+        this.toolService = new ToolService();
     }
 
     closeModal = (): void => {
@@ -32,9 +41,10 @@ export class SaveToolModal extends React.Component {
     }
 
     handleSubmit = (tool: any): void => {
+        saveToolValidation.isValid(this.props.initialValues).then((valid) => console.log('validando: ', valid))
         let newTool = tool;
         newTool.tags = newTool.tags.split(' ');
-        ToolService.prototype.saveTool(newTool).then(res => {
+        this.toolService.saveTool(newTool).then(res => {
             if (res.status === 201) {
                 this.closeModal();
                 this.props.reloadTools();
@@ -47,39 +57,32 @@ export class SaveToolModal extends React.Component {
     }
 
     render() {
-        const validations = yup.object().shape({
-            title: yup.string().required(),
-            link: yup.string().required(),
-            description: yup.string().required(),
-            tags: yup.string().required()
-        })
-
         return (
             <Modal visible={this.props.visible} width="600" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                 <StyledModalBody>
                     <h1>+ Add tool</h1>
-                    <Formik initialValues={this.props.initialValues} onSubmit={this.handleSubmit} validationSchema={validations}>
+                    <Formik initialValues={this.props.initialValues} onSubmit={this.handleSubmit} validationSchema={saveToolValidation}>
                         {({ handleChange, handleSubmit, values }) => (
                             <StyledFormBox onSubmit={handleSubmit}>
                                 <div>
                                     <p>Tool Name *</p>
                                     <StyledTextInput type="text" name="title" onChange={handleChange} value={values.title} style={{ width: '100%' }} />
-                                    <ErrorMessage name="title" component="p" />
+                                    <StyledErrorMessage name="title" component="p" />
                                 </div>
                                 <div>
                                     <p>Tool Link *</p>
                                     <StyledTextInput type="text" name="link" onChange={handleChange} value={values.link} style={{ width: '100%' }} />
-                                    <ErrorMessage name="link" component="p" />
+                                    <StyledErrorMessage name="link" component="p" />
                                 </div>
                                 <div>
                                     <p>Tool description *</p>
-                                    <StyledTextArea rows={4} name="description" onChange={handleChange} value={values.description} style={{ width: '100%', resize: 'none' }}></StyledTextArea>
-                                    <ErrorMessage name="description" component="p" />
+                                    <StyledTextArea rows={3} name="description" onChange={handleChange} value={values.description} style={{ width: '100%', resize: 'none' }}></StyledTextArea>
+                                    <StyledErrorMessage name="description" component="p" />
                                 </div>
                                 <div>
                                     <p>Tags *</p>
                                     <StyledTextInput type="text" name="tags" onChange={handleChange} value={values.tags} style={{ width: '100%' }} />
-                                    <ErrorMessage name="tags" component="p" />
+                                    <StyledErrorMessage name="tags" component="p" />
                                 </div>
                                 <div className="button-box">
                                     <DangerButton type="button" onClick={() => this.closeModal()}>Cancel</DangerButton>

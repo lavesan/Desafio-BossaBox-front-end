@@ -21,9 +21,10 @@ export class DeleteToolModal extends React.Component {
         title: ''
     }
 
-    constructor(props: any) {
-        super(props)
+    constructor(props: any, private toolService: ToolService) {
+        super(props);
         this.props = props;
+        this.toolService = new ToolService();
     }
 
     closeModal = (): void => {
@@ -31,7 +32,7 @@ export class DeleteToolModal extends React.Component {
     }
     
     removeTool = (id: number): void => {
-        ToolService.prototype.deleteTool(id).then(res => {
+        this.toolService.deleteTool(id).then(res => {
             if (res.status === 200) {
                 this.closeModal()
                 this.props.reloadTools();
