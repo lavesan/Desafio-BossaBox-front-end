@@ -62,26 +62,26 @@ export class SaveToolModal extends React.Component {
                 <StyledModalBody>
                     <h1>+ Add tool</h1>
                     <Formik initialValues={this.props.initialValues} onSubmit={this.handleSubmit} validationSchema={saveToolValidation}>
-                        {({ handleChange, handleSubmit, values }) => (
+                        {({ handleChange, handleSubmit, values, errors }) => (
                             <StyledFormBox onSubmit={handleSubmit}>
                                 <div>
                                     <p>Tool Name *</p>
-                                    <StyledTextInput type="text" name="title" onChange={handleChange} value={values.title} style={{ width: '100%' }} />
+                                    <StyledTextInput type="text" invalid={errors.title} name="title" onChange={handleChange} value={values.title} style={{ width: '100%' }} />
                                     <StyledErrorMessage name="title" component="p" />
                                 </div>
                                 <div>
                                     <p>Tool Link *</p>
-                                    <StyledTextInput type="text" name="link" onChange={handleChange} value={values.link} style={{ width: '100%' }} />
+                                    <StyledTextInput type="text" invalid={errors.link} name="link" onChange={handleChange} value={values.link} style={{ width: '100%' }} />
                                     <StyledErrorMessage name="link" component="p" />
                                 </div>
                                 <div>
                                     <p>Tool description *</p>
-                                    <StyledTextArea rows={3} name="description" onChange={handleChange} value={values.description} style={{ width: '100%', resize: 'none' }}></StyledTextArea>
+                                    <StyledTextArea rows={3} invalid={errors.description} name="description" onChange={handleChange} value={values.description} style={{ width: '100%', resize: 'none' }}></StyledTextArea>
                                     <StyledErrorMessage name="description" component="p" />
                                 </div>
                                 <div>
                                     <p>Tags *</p>
-                                    <StyledTextInput type="text" name="tags" onChange={handleChange} value={values.tags} style={{ width: '100%' }} />
+                                    <StyledTextInput type="text" invalid={errors.tags} name="tags" onChange={handleChange} value={values.tags} style={{ width: '100%' }} />
                                     <StyledErrorMessage name="tags" component="p" />
                                 </div>
                                 <div className="button-box">

@@ -1,38 +1,34 @@
-import styled from 'styled-components';
+import styled, { StyledFunction, StyledComponent } from 'styled-components';
+import React from 'react';
 
-export const StyledTextInput = styled.input`
+export const StyledTextInput: any = styled.input`
     padding: 8px 20px;
     border-radius: 4px;
-    border: thin solid #EBEAED;
-    background-color: #F5F4F6;
-    color: #000;
+    border: thin solid ${(props: any) => props.invalid ? '#F95E5A' : '#EBEAED'};
+    background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#F5F4F6'};
+    color: ${(props: any) => props.invalid ? '#F95E5A' : '#000'};
     outline:none;
     box-sizing: border-box;
     :focus {
-        border-color: #DEDCE1;
-        background-color: #EBEAED;
-    }
-    :invalid {
-        color: ${props => props.theme.danger.primaryColor};
-        border-color: ${props => props.theme.danger.primaryColor};
-        background-color: ${props => props.theme.danger.quaternaryColor};
+        border-color: ${(props: any) => props.invalid ? '#F95E5A' : '#DEDCE1'};
+        background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#EBEAED'};
     }
     :disabled {
         color: #DEDCE1;
     }
 `
 
-export const StyledTextArea = styled.textarea`
+export const StyledTextArea: any = styled.textarea`
     padding: 5px 20px;
     border-radius: 4px;
-    border: thin solid #EBEAED;
-    background-color: #F5F4F6;
-    color: #000;
+    border: thin solid ${(props: any) => props.invalid ? '#F95E5A' : '#EBEAED'};
+    background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#F5F4F6'};
+    color: ${(props: any) => props.invalid ? '#F95E5A' : '#000'};
     outline:none;
     box-sizing: border-box;
     :focus {
-        border-color: #DEDCE1;
-        background-color: #EBEAED;
+        border-color: ${(props: any) => props.invalid ? '#F95E5A' : '#DEDCE1'};
+        background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#EBEAED'};
     }
     :invalid {
         color: #F95E5A;
