@@ -1,12 +1,12 @@
 import React from 'react';
 import { ToolService } from '../../services/tool.service';
 import { SuccessButton } from '../../components/buttons/styles';
-import { StyledTextInput, StyledCheckbox } from '../../components/inputs/styles';
+import { StyledCheckbox } from '../../components/inputs/styles';
 import { ToolCard } from '../../components/card/toolCard';
 import { SaveToolModal } from '../../components/modals/saveToll';
 import { DeleteToolModal } from '../../components/modals/deleteTool';
-import { StyledHomePage, StyledActionsBox } from './styles';
-import { ToolContext } from './context';
+import { StyledHomePage, StyledActionsBox, StyledSearchIcon, StyledHomeSearchInput } from './styles';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const box = {
     display: 'flex',
@@ -101,7 +101,8 @@ export class HomePage extends React.Component {
                 <h1>VUTTR</h1>
                 <h2>Very Useful Tools to Remember</h2>
                     <StyledActionsBox>
-                        <StyledTextInput type="text" placeholder="search" onKeyUp={this.onSearchKeyUp} />
+                        <StyledSearchIcon icon={faSearch} />
+                        <StyledHomeSearchInput type="text" placeholder="search" onKeyUp={this.onSearchKeyUp} />
                         <StyledCheckbox>
                             <input id="search" type="checkbox" onChange={this.onChangeTagsOnly} />
                             <label htmlFor="search">Search in tags only</label>
@@ -114,7 +115,7 @@ export class HomePage extends React.Component {
                         tool.title ? <ToolCard key={tool.id} tool={tool} manageVisibilityRemoveToolModal={this.manageVisibilityRemoveToolModal} /> : <p>{this.emptyToolsMessage}</p>)
                 }
                 <SaveToolModal manageVisibilitySaveToolModal={this.manageVisibilitySaveToolModal} visible={visibilitySaveToolModal} 
-                    initialValues={initialValues} reloadTools={this.reloadTools} />
+                    reloadTools={this.reloadTools} />
                 <DeleteToolModal manageVisibilityRemoveToolModal={this.manageVisibilityRemoveToolModal} visible={visibilityRemoveToolModal} 
                     id={removeModalInfo.id} title={removeModalInfo.title} reloadTools={this.reloadTools} />
             </StyledHomePage>

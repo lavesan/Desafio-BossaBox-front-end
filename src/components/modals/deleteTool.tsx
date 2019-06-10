@@ -5,59 +5,41 @@ import { StyledModalBody } from '../card/styles';
 import { SuccessButton, DangerButton } from '../buttons/styles';
 import { ToolService } from '../../services/tool.service';
 
-export class DeleteToolModal extends React.Component {
+interface IPropsDeleteModal {
+    visible: boolean, 
+    id: number,
+    title: string,
+    manageVisibilityRemoveToolModal: (visible: boolean) => void,
+    reloadTools: () => void
+}
 
-    props: {
-        visible: boolean, 
-        id: number, 
-        title: string, 
-        manageVisibilityRemoveToolModal: (visible: boolean) => void,
-        reloadTools: () => void
-    }
+export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = function({ visible, id, title, manageVisibilityRemoveToolModal, reloadTools }) {
 
-    state = {
-        visible: false, 
-        id: -1, 
-        title: ''
-    }
+    const toolService: ToolService = new ToolService();
 
-    constructor(props: any, private toolService: ToolService) {
-        super(props);
-        this.props = props;
-        this.toolService = new ToolService();
-    }
-
-    closeModal = (): void => {
-        this.props.manageVisibilityRemoveToolModal(false);
+    const closeModal = function(): void {
+        manageVisibilityRemoveToolModal(false);
     }
     
-    removeTool = (id: number): void => {
-        this.toolService.deleteTool(id).then(res => {
+    const removeTool = function(id: number): void {
+        toolService.deleteTool(id).then(res => {
             if (res.status === 200) {
-                this.closeModal()
-                this.props.reloadTools();
+                closeModal()
+                reloadTools();
             }
         });
     }
 
-    componentWillReceiveProps(newProps: any) {
-        this.setState({ showDeleteToolModal: newProps.showDeleteToolModal })
-    }
-
-    render() {
-        const { title, id, visible } = this.props;
-
-        return (
-            <Modal visible={visible} width="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                <StyledModalBody>
-                    <h1>X Remove tool</h1>
-                    <p>Are you sure you want to remove <strong>{title}</strong>?</p>
-                    <div className="button-box">
-                        <DangerButton onClick={() => this.closeModal()}>Cancel</DangerButton>
-                        <SuccessButton onClick={() => this.removeTool(id)}>Yes, remove</SuccessButton>
-                    </div>
-                </StyledModalBody>
-            </Modal>
-        )
-    }
-} 
+    return (
+        <Modal visible={visible} width="450" effect="fadeInUp" onClickAway={() => closeModal()}>
+            <StyledModalBody>
+                <h1>X Remove tool</h1>
+                <p>Are you sure you want to remove <strong>{title}</strong>?</p>
+                <div className="button-box">
+                    <DangerButton onClick={() => closeModal()}>Cancel</DangerButton>
+                    <SuccessButton onClick={() => removeTool(id)}>Yes, remove</SuccessButton>
+                </div>
+            </StyledModalBody>
+        </Modal>
+    )
+}

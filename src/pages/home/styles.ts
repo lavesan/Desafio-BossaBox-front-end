@@ -1,4 +1,15 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { StyledTextInput } from '../../components/inputs/styles';
+
+export const StyledSearchIcon = styled(FontAwesomeIcon)`
+    position: absolute;
+    left: 20px;
+`
+
+export const StyledHomeSearchInput = styled(StyledTextInput)`
+    padding-left: 33px;
+`
 
 export const StyledHomePage = styled.div`
     margin: 0 auto;
@@ -6,6 +17,7 @@ export const StyledHomePage = styled.div`
     padding: 10px;
     color: ${props => props.theme.primaryFontColor};
     font-family: ${props => props.theme.bossaFontFamily};
+    position: relative;
 `
 
 export const StyledActionsBox = styled.div`

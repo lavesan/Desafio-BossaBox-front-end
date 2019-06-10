@@ -1,6 +1,6 @@
 import React from 'react';
 import { DangerButton } from '../buttons/styles';
-import { StyledCard, StyledModalBody } from './styles';
+import { StyledCard } from './styles';
 
 export type TypeTool = {
     description: string;
@@ -10,34 +10,23 @@ export type TypeTool = {
     tags: string[];
 }
 
-export class ToolCard extends React.Component {
+interface IPropsToolCard {
+    tool: TypeTool;
+    manageVisibilityRemoveToolModal: (visible: boolean, modalInfo?: { id: number, title: string }) => void;
+}
 
-    props: {
-        tool: TypeTool,
-        manageVisibilityRemoveToolModal: (visible: boolean, modalInfo?: { id: number, title: string }) => void
-    }
-
-    constructor(props: any) {
-        super(props);
-        this.props = props;
-    }
-
-    render() {
-        
-        const { tool: { title, id, link, description, tags }, manageVisibilityRemoveToolModal } = this.props;
-
-        return (
-            <StyledCard>
-                <div className="header-box">
-                    <h3><a href={link} target="_blank" rel="noopener noreferrer">{title}</a></h3>
-                    <div>
-                        <DangerButton onClick={() => this.props.manageVisibilityRemoveToolModal(true, { id, title })
-                        }>X remove</DangerButton>
-                    </div>
+export const ToolCard: React.FunctionComponent<IPropsToolCard> = function({ tool, manageVisibilityRemoveToolModal }) {
+    return (
+        <StyledCard>
+            <div className="header-box">
+                <h3><a href={tool.link} target="_blank" rel="noopener noreferrer">{tool.title}</a></h3>
+                <div>
+                    <DangerButton onClick={() => manageVisibilityRemoveToolModal(true, { id: tool.id, title: tool.title })
+                    }>X remove</DangerButton>
                 </div>
-                <p>{description}</p>
-                <strong>{tags.map(tag => `#${tag} `)}</strong>
-            </StyledCard>
-        )
-    }
+            </div>
+            <p>{tool.description}</p>
+            <strong>{tool.tags.map(tag => `#${tag} `)}</strong>
+        </StyledCard>
+    )
 }
