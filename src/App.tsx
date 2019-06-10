@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import { HomePage } from './pages/home/home'
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 
 class App extends React.Component {
@@ -32,12 +31,7 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={HomePage} />
-          </Switch>
-        </Router>
+          <HomePage />
       </ThemeProvider>
     );
   }

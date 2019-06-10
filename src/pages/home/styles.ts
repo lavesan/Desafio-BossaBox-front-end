@@ -16,7 +16,6 @@ export const StyledHomePage = styled.div`
     width: calc(100% - 500px);
     padding: 10px;
     color: ${props => props.theme.primaryFontColor};
-    font-family: ${props => props.theme.bossaFontFamily};
     position: relative;
 `
 

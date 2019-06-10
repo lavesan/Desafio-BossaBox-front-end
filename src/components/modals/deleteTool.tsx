@@ -6,14 +6,16 @@ import { SuccessButton, DangerButton } from '../buttons/styles';
 import { ToolService } from '../../services/tool.service';
 
 interface IPropsDeleteModal {
-    visible: boolean, 
-    id: number,
-    title: string,
+    visible: boolean,
+    removeModalInfo: {
+        id: number,
+        title: string,
+    } 
     manageVisibilityRemoveToolModal: (visible: boolean) => void,
     reloadTools: () => void
 }
 
-export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = function({ visible, id, title, manageVisibilityRemoveToolModal, reloadTools }) {
+export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = function({ visible, removeModalInfo: { id, title }, manageVisibilityRemoveToolModal, reloadTools }) {
 
     const toolService: ToolService = new ToolService();
 
