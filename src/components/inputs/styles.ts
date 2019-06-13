@@ -13,9 +13,7 @@ export const StyledTextInput: any = styled.input`
         border-color: ${(props: any) => props.invalid ? '#F95E5A' : '#DEDCE1'};
         background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#EBEAED'};
     }
-    :disabled {
-        color: #DEDCE1;
-    }
+    ${(props: any) => props.disable && 'pointer-events:none; color: #DEDCE1;'}
 `
 
 export const StyledTextArea: any = styled.textarea`
@@ -35,6 +33,7 @@ export const StyledTextArea: any = styled.textarea`
         border-color: #F95E5A;
         background-color: #FEEFEE;
     }
+    ${(props: any) => props.disable && 'pointer-events:none; color: #DEDCE1;'}
 `
 
 export const StyledCheckbox = styled.div`
