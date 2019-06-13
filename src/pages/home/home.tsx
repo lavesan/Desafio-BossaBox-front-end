@@ -40,7 +40,7 @@ export const HomePage = function() {
     const [showDeleteToolModal, setShowDeleteToolModal] = useState<boolean>(false);
     const [showSaveToolModal, setShowSaveToolModal] = useState<boolean>(false);
     const [loadingTools, setLoadingTools] = useState<boolean>(false);
-    let removeModalInfo: { id: number, title: string } = { id: -1, title: '' };
+    const [removeModalInfo, setRemoveModalInfo] = useState<{ id: number, title: string }>({ id: -1, title: '' });
 
     const toolService: ToolService = new ToolService();
 
@@ -48,8 +48,8 @@ export const HomePage = function() {
 
     const manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: { id: number, title: string }): void => {
         if (modalInfo)
-            removeModalInfo = modalInfo;
-            setShowDeleteToolModal(visible);
+            setRemoveModalInfo(modalInfo);
+        setShowDeleteToolModal(visible);
     }
     
     const manageVisibilitySaveToolModal = (visible: boolean): void => {
