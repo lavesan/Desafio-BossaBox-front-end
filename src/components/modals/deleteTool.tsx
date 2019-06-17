@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
 import { StyledModalBody } from '../card/styles';
 import { SuccessButton, DangerButton } from '../buttons/styles';
 import { ToolService } from '../../services/tool.service';
+import { Spinner } from '../loadingSpinner/spinner'
 
 interface IPropsDeleteModal {
     visible: boolean,
@@ -16,6 +17,7 @@ interface IPropsDeleteModal {
 }
 
 export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = function({ visible, removeModalInfo: { id, title }, manageVisibilityRemoveToolModal, reloadTools }) {
+    const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
     const toolService: ToolService = new ToolService();
 
@@ -24,11 +26,15 @@ export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = funct
     }
     
     const removeTool = function(id: number): void {
+        setLoadingSubmit(true);
         toolService.deleteTool(id).then(res => {
+            setLoadingSubmit(false);
             if (res.status === 200) {
                 closeModal()
                 reloadTools();
             }
+        }).catch(() => {
+            setLoadingSubmit(false);
         });
     }
 
@@ -41,6 +47,7 @@ export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = funct
                     <DangerButton onClick={() => closeModal()}>Cancel</DangerButton>
                     <SuccessButton onClick={() => removeTool(id)}>Yes, remove</SuccessButton>
                 </div>
+                {loadingSubmit && <Spinner style={{ position: 'absolute', left: '50%', top: '50%' }} />}
             </StyledModalBody>
         </Modal>
     )

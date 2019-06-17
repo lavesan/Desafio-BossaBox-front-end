@@ -16,9 +16,9 @@ const box = {
 }
 
 const loadingHome = {
-    position: 'sticky',
+    position: 'fixed',
     left: '50%',
-    top: '280px'
+    top: '380px'
 }
 
 interface ISearchTools {
@@ -36,15 +36,16 @@ interface IToolInfo {
 
 export const HomePage = function() {
     const [tools, setTools] = useState<IToolInfo[] | null>(null);
-    const [searchToolsConf, setSearchToolsConf] = useState<ISearchTools>({ onlyTags: false, searchInput: '' });
     const [showDeleteToolModal, setShowDeleteToolModal] = useState<boolean>(false);
     const [showSaveToolModal, setShowSaveToolModal] = useState<boolean>(false);
     const [loadingTools, setLoadingTools] = useState<boolean>(false);
     const [removeModalInfo, setRemoveModalInfo] = useState<{ id: number, title: string }>({ id: -1, title: '' });
+    const [emptyToolsMessage, setEmptyToolsMessage] = useState<'No tools found' | 'Server problem. Wait a moment and try again.'>('No tools found');
+    
+    const searchToolsConf: ISearchTools = { onlyTags: false, searchInput: '' };
 
     const toolService: ToolService = new ToolService();
 
-    let emptyToolsMessage: 'No tools found' | 'Server problem. Wait a moment and try again.' = 'No tools found';
 
     const manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: { id: number, title: string }): void => {
         if (modalInfo)
@@ -78,10 +79,10 @@ export const HomePage = function() {
             .then(res =>  {
                 setLoadingTools(false);
                 setTools(res);
-                emptyToolsMessage = 'No tools found';
+                setEmptyToolsMessage('No tools found');
             })
             .catch(_ => {
-                emptyToolsMessage = 'Server problem. Wait a moment and try again.';
+                setEmptyToolsMessage('Server problem. Wait a moment and try again.');
                 setLoadingTools(false);
                 setTools(null);
             });
@@ -93,17 +94,16 @@ export const HomePage = function() {
             .then(res => {
                 setLoadingTools(false);
                 setTools(res)
-                emptyToolsMessage = 'No tools found';
+                setEmptyToolsMessage('No tools found');
             }).catch(_ => {
                 setLoadingTools(false);
                 setTools(null)
-                emptyToolsMessage = 'Server problem. Wait a moment and try again.';
+                setEmptyToolsMessage('Server problem. Wait a moment and try again.');
             })
     }
 
     useEffect(() => {
         reloadTools();
-        console.log('entrando');
     }, [])
 
     return (
