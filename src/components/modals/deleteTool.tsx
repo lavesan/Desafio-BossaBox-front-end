@@ -44,8 +44,8 @@ export const DeleteToolModal: React.FunctionComponent<IPropsDeleteModal> = funct
                 <h1>X Remove tool</h1>
                 <p>Are you sure you want to remove <strong>{title}</strong>?</p>
                 <div className="button-box">
-                    <DangerButton onClick={() => closeModal()}>Cancel</DangerButton>
-                    <SuccessButton onClick={() => removeTool(id)}>Yes, remove</SuccessButton>
+                    <DangerButton disable={loadingSubmit} onClick={() => closeModal()}>Cancel</DangerButton>
+                    <SuccessButton disable={loadingSubmit} onClick={() => removeTool(id)}>Yes, remove</SuccessButton>
                 </div>
                 {loadingSubmit && <Spinner style={{ position: 'absolute', left: '50%', top: '50%' }} />}
             </StyledModalBody>

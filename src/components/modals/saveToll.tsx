@@ -81,8 +81,8 @@ export const SaveToolModal: React.FunctionComponent<IPropsSaveToll> = function({
                                 <StyledErrorMessage name="tags" component="p" />
                             </div>
                             <div className="button-box">
-                                <DangerButton type="button" onClick={() => closeModal()}>Cancel</DangerButton>
-                                <SuccessButton type="submit">Add tool</SuccessButton>
+                                <DangerButton type="button" disable={loadingSubmit} onClick={() => closeModal()}>Cancel</DangerButton>
+                                <SuccessButton type="submit" disable={loadingSubmit}>Add tool</SuccessButton>
                             </div>
                         </StyledFormBox>
                     )

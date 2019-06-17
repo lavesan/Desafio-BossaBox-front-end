@@ -26,7 +26,7 @@ export const NeutralButton = styled(Button)`
   }
 `
 
-export const SuccessButton = styled(Button)`
+export const SuccessButton: any = styled(Button)`
   border: thin solid ${props => props.theme.success.primaryColor};
   background-color: ${props => props.theme.success.primaryColor};
   :hover {
@@ -37,13 +37,13 @@ export const SuccessButton = styled(Button)`
     border-color: ${props => props.theme.success.terciaryColor};
     background-color: ${props => props.theme.success.terciaryColor};
   }
-  :disabled {
-    border-color: ${props => props.theme.success.quaternaryColor};
-    background-color: ${props => props.theme.success.quaternaryColor};
-  }
+  ${(props: any) => props.disable && `
+    pointer-events:none; 
+    border-color: ${props.theme.success.quaternaryColor}; 
+    background-color: ${props.theme.success.quaternaryColor}`}
 `
 
-export const DangerButton = styled(Button)`
+export const DangerButton: any = styled(Button)`
   border: thin solid ${props => props.theme.danger.primaryColor};
   background-color: ${props => props.theme.danger.primaryColor};
   :hover {
@@ -54,8 +54,8 @@ export const DangerButton = styled(Button)`
     border-color: ${props => props.theme.danger.terciaryColor};
     background-color: ${props => props.theme.danger.terciaryColor};
   }
-  :disabled {
-    border-color: ${props => props.theme.danger.quaternaryColor};
-    background-color: ${props => props.theme.danger.quaternaryColor};
-  }
+  ${(props: any) => props.disable && `
+    pointer-events:none; 
+    border-color: ${props.theme.danger.quaternaryColor}; 
+    background-color: ${props.theme.danger.quaternaryColor}`}
 `
