@@ -52,10 +52,10 @@ export const SaveToolModal: React.FunctionComponent<IPropsSaveToll> = function({
         <Modal visible={visible} width="600" effect="fadeInUp" onClickAway={() => closeModal()}>
             <StyledModalBody>
                 {loadingSubmit && <Spinner style={SpinnerStyle} />}
-                <h1>+ Add tool</h1>
                 <Formik initialValues={initialFormikValues} onSubmit={handleSubmit} validationSchema={saveToolValidation}>
                     {({ handleChange, handleSubmit, values, errors }) => (
                         <StyledFormBox onSubmit={handleSubmit}>
+                            <h1>+ Add tool</h1>
                             <div>
                                 <p>Tool Name *</p>
                                 <StyledTextInput 

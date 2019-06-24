@@ -7,7 +7,5 @@
 ## Available Scripts
 To Run the project in development mode:
 ### `npm run start`
-To Test the project:
-### `npm run test`
 
 Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
