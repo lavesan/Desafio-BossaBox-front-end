@@ -7,9 +7,9 @@ export const StyledSearchIcon = styled(FontAwesomeIcon)`
     left: 20px;
 `
 
-export const StyledHomeSearchInput = styled(StyledTextInput)`
-    padding-left: 33px;
-`
+export const StyledHomeSearchInput ={
+    paddingLeft: '33px'
+}
 
 export const StyledHomePage = styled.div`
     margin: 0 auto;

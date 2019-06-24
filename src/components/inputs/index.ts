@@ -1,38 +1,38 @@
-import styled, { StyledFunction, StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 
-export const StyledTextInput: any = styled.input`
+interface inputState {
+    invalid?: string | undefined;
+    disable?: boolean;
+}
+
+export const StyledTextInput = styled.input<inputState>`
     padding: 8px 20px;
     border-radius: 4px;
-    border: thin solid ${(props: any) => props.invalid ? '#F95E5A' : '#EBEAED'};
-    background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#F5F4F6'};
-    color: ${(props: any) => props.invalid ? '#F95E5A' : '#000'};
+    border: thin solid ${({ invalid }) => invalid ? '#F95E5A' : '#EBEAED'};
+    background-color: ${({ invalid }) => invalid ? '#FEEFEE' : '#F5F4F6'};
+    color: ${({ invalid }) => invalid ? '#F95E5A' : '#000'};
     outline:none;
     box-sizing: border-box;
     :focus {
-        border-color: ${(props: any) => props.invalid ? '#F95E5A' : '#DEDCE1'};
-        background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#EBEAED'};
+        border-color: ${({ invalid }) => invalid ? '#F95E5A' : '#DEDCE1'};
+        background-color: ${({ invalid }) => invalid ? '#FEEFEE' : '#EBEAED'};
     }
-    ${(props: any) => props.disable && 'pointer-events:none; color: #DEDCE1;'}
+    ${({ disable }) => disable && 'pointer-events:none; color: #DEDCE1;'}
 `
 
-export const StyledTextArea: any = styled.textarea`
+export const StyledTextArea = styled.textarea<inputState>`
     padding: 5px 20px;
     border-radius: 4px;
-    border: thin solid ${(props: any) => props.invalid ? '#F95E5A' : '#EBEAED'};
-    background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#F5F4F6'};
-    color: ${(props: any) => props.invalid ? '#F95E5A' : '#000'};
+    border: thin solid ${({ invalid }) => invalid ? '#F95E5A' : '#EBEAED'};
+    background-color: ${({ invalid }) => invalid ? '#FEEFEE' : '#F5F4F6'};
+    color: ${({ invalid }) => invalid ? '#F95E5A' : '#000'};
     outline:none;
     box-sizing: border-box;
     :focus {
-        border-color: ${(props: any) => props.invalid ? '#F95E5A' : '#DEDCE1'};
-        background-color: ${(props: any) => props.invalid ? '#FEEFEE' : '#EBEAED'};
+        border-color: ${({ invalid }) => invalid ? '#F95E5A' : '#DEDCE1'};
+        background-color: ${({ invalid }) => invalid ? '#FEEFEE' : '#EBEAED'};
     }
-    :invalid {
-        color: #F95E5A;
-        border-color: #F95E5A;
-        background-color: #FEEFEE;
-    }
-    ${(props: any) => props.disable && 'pointer-events:none; color: #DEDCE1;'}
+    ${({ disable }) => disable && 'pointer-events:none; color: #DEDCE1;'}
 `
 
 export const StyledCheckbox = styled.div`

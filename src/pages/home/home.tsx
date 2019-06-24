@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToolService } from '../../services';
 import { SuccessButton } from '../../components/buttons';
-import { StyledCheckbox } from '../../components/inputs';
+import { StyledCheckbox, StyledTextInput } from '../../components/inputs';
 import { ToolCard } from '../../components/card';
 import { SaveToolModal } from '../../components/modals';
 import { DeleteToolModal } from '../../components/modals';
@@ -115,7 +115,7 @@ export const HomePage = function() {
                 <h2>Very Useful Tools to Remember</h2>
                     <StyledActionsBox>
                         <StyledSearchIcon icon={faSearch} />
-                        <StyledHomeSearchInput type="text" placeholder="search" onKeyUp={onSearchKeyUp} />
+                        <StyledTextInput style={StyledHomeSearchInput} type="text" placeholder="search" onKeyUp={onSearchKeyUp} />
                         <StyledCheckbox>
                             <input id="search" type="checkbox" onChange={onChangeTagsOnly} />
                             <label htmlFor="search">Search in tags only</label>
