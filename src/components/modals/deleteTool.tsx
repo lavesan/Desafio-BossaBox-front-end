@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
 import { StyledModalBody } from '../card/styles';
-import { SuccessButton, DangerButton } from '../buttons/styles';
-import { ToolService } from '../../services/tool.service';
-import { Spinner } from '../loadingSpinner/spinner'
+import { SuccessButton, DangerButton } from '../buttons';
+import { ToolService } from '../../services';
+import { Spinner } from '../loadingSpinner'
 
 interface IPropsDeleteModal {
     visible: boolean,

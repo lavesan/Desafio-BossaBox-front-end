@@ -1,5 +1,4 @@
 import styled, { StyledFunction, StyledComponent } from 'styled-components';
-import React from 'react';
 
 export const StyledTextInput: any = styled.input`
     padding: 8px 20px;

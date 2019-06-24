@@ -1,45 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { ToolService } from '../../services/tool.service';
-import { SuccessButton } from '../../components/buttons/styles';
-import { StyledCheckbox } from '../../components/inputs/styles';
-import { ToolCard } from '../../components/card/toolCard';
-import { SaveToolModal } from '../../components/modals/saveToll';
-import { DeleteToolModal } from '../../components/modals/deleteTool';
-import { StyledHomePage, StyledActionsBox, StyledSearchIcon, StyledHomeSearchInput } from './styles';
+import { ToolService } from '../../services';
+import { SuccessButton } from '../../components/buttons';
+import { StyledCheckbox } from '../../components/inputs';
+import { ToolCard } from '../../components/card';
+import { SaveToolModal } from '../../components/modals';
+import { DeleteToolModal } from '../../components/modals';
+import { StyledHomePage, StyledActionsBox, StyledSearchIcon, StyledHomeSearchInput, loadingHome, box } from './styles';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Spinner } from '../../components/loadingSpinner/spinner'
-
-const box = {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    flex: 1
-}
-
-const loadingHome = {
-    position: 'fixed',
-    left: '50%',
-    top: '380px'
-}
-
-interface ISearchTools {
-    onlyTags: boolean, 
-    searchInput: string
-}
-
-interface IToolInfo {
-    description: string;
-    id: number;
-    title: string;
-    link: string;
-    tags: string[];
-}
+import { Spinner } from '../../components/loadingSpinner';
+import { ISearchTools, IToolInfo, IRemoveData } from './interface';
 
 export const HomePage = function() {
     const [tools, setTools] = useState<IToolInfo[] | null>(null);
     const [showDeleteToolModal, setShowDeleteToolModal] = useState<boolean>(false);
     const [showSaveToolModal, setShowSaveToolModal] = useState<boolean>(false);
     const [loadingTools, setLoadingTools] = useState<boolean>(false);
-    const [removeModalInfo, setRemoveModalInfo] = useState<{ id: number, title: string }>({ id: -1, title: '' });
+    const [removeModalInfo, setRemoveModalInfo] = useState<IRemoveData>({ id: -1, title: '' });
     const [emptyToolsMessage, setEmptyToolsMessage] = useState<'No tools found' | 'Server problem. Wait a moment and try again.'>('No tools found');
     
     const searchToolsConf: ISearchTools = { onlyTags: false, searchInput: '' };

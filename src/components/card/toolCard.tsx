@@ -1,5 +1,5 @@
 import React from 'react';
-import { DangerButton } from '../buttons/styles';
+import { DangerButton } from '../buttons';
 import { StyledCard } from './styles';
 
 export type TypeTool = {

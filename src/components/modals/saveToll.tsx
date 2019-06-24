@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 // @ts-ignore
 import Modal from 'react-awesome-modal';
 import { StyledModalBody } from '../card/styles';
-import { SuccessButton, DangerButton } from '../buttons/styles';
-import { StyledTextInput, StyledTextArea } from '../inputs/styles';
-import { ToolService } from '../../services/tool.service';
+import { SuccessButton, DangerButton } from '../buttons';
+import { StyledTextInput, StyledTextArea } from '../inputs';
+import { ToolService } from '../../services';
 import { StyledFormBox } from './styles'
 import { Formik, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import { saveToolValidation } from './validations'
-import { Spinner } from '../loadingSpinner/spinner'
+import { Spinner } from '../loadingSpinner'
 
 const StyledErrorMessage = styled(ErrorMessage)`
     color: ${props => props.theme.danger.primaryColor};
