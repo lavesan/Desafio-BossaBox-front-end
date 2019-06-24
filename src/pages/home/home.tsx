@@ -8,7 +8,7 @@ import { DeleteToolModal } from '../../components/modals';
 import { StyledHomePage, StyledActionsBox, StyledSearchIcon, StyledHomeSearchInput, loadingHome, box } from './styles';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from '../../components/loadingSpinner';
-import { ISearchTools, IToolInfo, IRemoveData } from './interface';
+import { ISearchTools, IToolInfo, IRemoveData } from './interfaces';
 
 export const HomePage = function() {
     const [tools, setTools] = useState<IToolInfo[] | null>(null);
@@ -23,16 +23,29 @@ export const HomePage = function() {
     const toolService: ToolService = new ToolService();
 
 
-    const manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: { id: number, title: string }): void => {
+    /**
+     * @description Manages visibility of delete tool modal
+     * @param {boolean} visible When true shows modal. false hides. 
+     * @param {IRemoveData} modalInfo Loads id and title of tool on delete modal
+     */
+    const manageVisibilityRemoveToolModal = (visible: boolean, modalInfo?: IRemoveData): void => {
         if (modalInfo)
             setRemoveModalInfo(modalInfo);
         setShowDeleteToolModal(visible);
     }
-    
+
+    /**
+     * @description Manages visibility of save tool modal
+     * @param {boolean} visible When true shows modal. false hides.
+     */
     const manageVisibilitySaveToolModal = (visible: boolean): void => {
         setShowSaveToolModal(visible);
     }
 
+    /**
+     * @description Manages checkbox 'tags only' attribute
+     * @param element native element of input
+     */
     const onChangeTagsOnly = (element: any) => {
         const { target: { checked } } = element;
 
@@ -40,6 +53,10 @@ export const HomePage = function() {
         searchTools();
     }
     
+    /**
+     * @description Search tools on input keyup
+     * @param element native element of input
+     */
     const onSearchKeyUp = (element: any) => {
         const { target: { value } } = element;
 
@@ -47,6 +64,9 @@ export const HomePage = function() {
         searchTools();
     }
 
+    /**
+     * @description Search tools on screen getting them filtered.
+     */
     const searchTools = async () => {
         const { searchInput, onlyTags } = searchToolsConf;
 
@@ -62,8 +82,11 @@ export const HomePage = function() {
                 setLoadingTools(false);
                 setTools(null);
             });
-        }
-        
+    }
+     
+    /**
+     * @description Reload tools on screen getting all.
+     */
     const reloadTools = async () => {
         setLoadingTools(true);
         await toolService.getAllTools()
@@ -78,6 +101,9 @@ export const HomePage = function() {
             })
     }
 
+    /**
+     * @description Triggered when page loads.
+     */
     useEffect(() => {
         reloadTools();
     }, [])

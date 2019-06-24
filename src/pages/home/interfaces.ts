@@ -3,9 +3,16 @@ export interface ISearchTools {
     searchInput: string
 }
 
-export interface IToolInfo {
+export interface IToolData {
     description: string;
+    title: string;
+    link: string;
+    tags: any;
+}
+
+export interface IToolInfo {
     id: number;
+    description: string;
     title: string;
     link: string;
     tags: string[];
