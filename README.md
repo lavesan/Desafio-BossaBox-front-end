@@ -1,7 +1,8 @@
 ## Prerequisites
 1. node@8+
-2. create-react-app@2.1.8
-3. git clone and run this repo:
+2. npm
+3. create-react-app@2.1.8
+4. git clone and run this repo:
     * https://gitlab.com/bossabox/challenge-fake-api/tree/master
 
 ## Available Scripts
