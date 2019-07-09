@@ -61,8 +61,8 @@ export const SaveToolModal: React.FunctionComponent<IPropsSaveToll> = function({
                                 <StyledTextInput 
                                     type="text" 
                                     invalid={errors.title} 
-                                    disable={loadingSubmit} 
-                                    name="title" 
+                                    disable={loadingSubmit}
+                                    name="title"
                                     onChange={handleChange} 
                                     value={values.title} 
                                     style={{ width: '100%' }} />
